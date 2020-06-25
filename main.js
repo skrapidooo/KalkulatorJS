@@ -1,56 +1,74 @@
 const btns = document.querySelectorAll('div[data-key]');
 const display = document.querySelector(".dislayScreen");
-let currentNumber = "";
-let result = "";
+let displayNumber = "";
+let temp = 0;
+let result = 0;
+let operator = "";
 
 const getNumbers = function (cyfra) {
-    // if (result === "") {
-    if (currentNumber.length === 0 && cyfra === 0) {
-        return
-    } else if (currentNumber.length === 10) return
-    currentNumber += cyfra
-    // result = currentNumber * 1;
+    displayNumber += cyfra;
+    if (displayNumber[0] === "0") {
+        return displayNumber = ""
+    } else if (Math.floor(displayNumber * 1) > 1000000000) return
 
-    // } else {
-    //     if (currentNumber.length === 0 && cyfra === 0) {
-    //         return
-    //     } else if (currentNumber.length === 10) return
-    //     currentNumber += cyfra
-    //     result = currentNumber * 1;
-    // }
-    display.textContent = currentNumber;
-    return currentNumber;
+    display.textContent = displayNumber;
+    return displayNumber;
 }
 
 const operacjeArytmetyczne = function (liczba, dzialanie) {
-    if (result === "") {
-        result = liczba * 1
-        currentNumber = ""
+    if (operator === "") {
+        temp = liczba * 1;
+        operator = dzialanie;
+        displayNumber = "";
         return
-    } else {
+    } else if (operator === "+") {
+        result = (temp + liczba * 1);
+        temp = result;
+        display.textContent = result;
+        operator = dzialanie;
+        displayNumber = "";
+        return
+    } else if (operator === "-") {
+        result = (temp - liczba * 1);
+        temp = result;
+        display.textContent = result;
+        operator = dzialanie;
+        displayNumber = "";
+        return
+    } else if (operator === "*") {
+        result = (temp * (liczba * 1));
+        temp = result;
+        display.textContent = result;
+        operator = dzialanie;
+        displayNumber = "";
+        return
+    } else if (operator === "/") {
+        result = (temp / (liczba * 1));
+        temp = result;
+        display.textContent = result;
+        operator = dzialanie;
+        displayNumber = "";
+        return
+    }
+    // else if (dzialanie === "=") {
+    //     result = temp + operator + liczba;
+    //     temp = result;
+    //     display.textContent = result;
+    //     operator = dzialanie;
+    //     displayNumber = "";
+    //     return
+    // }
 
 
-        if (dzialanie === "+") {
-            result += liczba * 1;
-            display.textContent = result;
-            currentNumber = ""
-            return result;
-        } else if (dzialanie === "-") {
-            result -= liczba * 1;
-            display.textContent = result;
-            currentNumber = ""
-            return result;
-        } else if (dzialanie === "*") {
-            result *= liczba * 1;
-            display.textContent = result;
-            currentNumber = ""
-            return result;
-        } else if (dzialanie === "*") {
-            result *= (liczba * 1);
-            display.textContent = result;
-            currentNumber = ""
-            return result;
-        }
+}
+
+const czyszczenie = (type) => {
+    if (type === "CE") {
+        display.textContent = "0";
+        displayNumber = "";
+        temp = 0;
+        result = 0;
+        operator = "";
     }
 }
 
@@ -59,13 +77,15 @@ btns.forEach(function (btn) {
         if (typeof (this.dataset.key * 1) === "number" && (this.dataset.key * 1) >= 0) {
             return getNumbers(this.dataset.key * 1);
         } else if (this.dataset.key === "+") {
-            return operacjeArytmetyczne(currentNumber, "+")
+            return operacjeArytmetyczne(displayNumber, "+")
         } else if (this.dataset.key === "-") {
-            return operacjeArytmetyczne(currentNumber, "-")
+            return operacjeArytmetyczne(displayNumber, "-");
         } else if (this.dataset.key === "*") {
-            return operacjeArytmetyczne(currentNumber, "*")
+            return operacjeArytmetyczne(displayNumber, "*")
         } else if (this.dataset.key === "/") {
-            return operacjeArytmetyczne(currentNumber, "/")
+            return operacjeArytmetyczne(displayNumber, "/")
+        } else if (this.dataset.key === "CE") {
+            return czyszczenie("CE");
         }
     })
 })
