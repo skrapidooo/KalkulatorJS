@@ -10,15 +10,6 @@ let operationNumber = 0;
 let tempOperator = "";
 let datasetTem = "";
 
-const czyszczenie = (type) => {
-    if (type === "CE") {
-        display.textContent = "0";
-        displayNumber = "";
-        temp = 0;
-        result = 0;
-        operator = "";
-    }
-}
 const oblicz = function (string) {
     if (operationNumber !== 0 && string === "+") {
         console.log("test2")
@@ -145,10 +136,71 @@ const działanie = function (dataset) {
     }
 }
 
+//funkcja obsługująca przyciski CE , C , BCK
+const czyszczenie = function (key) {
+    //obsługa klawisza CE
+    if (key === "CE") {
+        displayNumber = "";
+        temp1 = 0;
+        temp2 = 0;
+        result = 0;
+        operationDone = false;
+        operationNumber = 0;
+        tempOperator = "";
+        datasetTem = "";
+        display.textContent = "0";
+        // usuwanie ostanitej cyfry
+    } else if (key === "backslash") {
+        // usuwanie ostatniej cyfry z pierwszej wpisanej liczby
+        if (operationNumber === 0 && displayNumber) {
+            // console.log("test backslash");
+            displayNumber = displayNumber.slice(0, -1);
+            if (displayNumber.length > 0) {
+                temp1 = displayNumber * 1;
+                display.textContent = displayNumber;
+            } else {
+                temp1 = 0;
+                display.textContent = "0"
+            }
+            // usuwanie ostaniej cyfry z każdej kolejnej wpisanej liczby
+        } else if (operationNumber !== 0 && displayNumber) {
+            displayNumber = displayNumber.slice(0, -1);
+            temp2 = displayNumber * 1;
+            if (displayNumber.length > 0) {
+                temp2 = displayNumber * 1;
+                display.textContent = displayNumber;
+            } else {
+                temp2 = 0;
+                display.textContent = "0"
+            }
+        }
+    } else if (key === "C") {
+        // usuwanie tego co jest na ekranie dla pierwszej liczby
+        if (operationNumber === 0 && displayNumber) {
+            displayNumber = "";
+            temp1 = 0;
+            temp2 = 0;
+            result = 0;
+            operationDone = false;
+            operationNumber = 0;
+            tempOperator = "";
+            datasetTem = "";
+            display.textContent = "0";
+            // usuwanie ostaniej cyfry z każdej kolejnej wpisanej liczby
+        } else if (operationNumber !== 0 && displayNumber) {
+            displayNumber = "";
+            temp2 = 0;
+            display.textContent = "0"
+        }
+    }
+}
+
 btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
         if ((this.dataset.key * 1) >= 0 || this.dataset.key === "+" || this.dataset.key === "-" || this.dataset.key === "*" || this.dataset.key === "/" || this.dataset.key === "=") {
             działanie(this.dataset.key);
+        } else if (this.dataset.key === "CE" || this.dataset.key === "backslash" || this.dataset.key === "C") {
+            czyszczenie(this.dataset.key);
         }
     })
 })
