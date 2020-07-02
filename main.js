@@ -195,12 +195,123 @@ const czyszczenie = function (key) {
     }
 }
 
+//specjalne dzialania
+const specjalneDzialanie = function (key) {
+    // PROCENT
+    if (key === "%") {
+        //oblicznie % dla pierwszej wpisanej liczby
+        if (operationNumber === 0 && datasetTem !== "=") {
+            temp1 = temp1 * 0.01;
+            console.log(temp1);
+            displayNumber = "";
+            display.textContent = temp1;
+            // obliczanie procentu dla kolejnej wpisanej liczby lub liczby w działaniu
+        } else if (operationNumber !== 0 && datasetTem !== "=") {
+            temp2 = temp2 * 0.01;
+            console.log(temp2);
+            displayNumber = "";
+            display.textContent = temp2;
+            // obliczanie procentu dla wyliczonej wartości
+        } else if (operationNumber !== 0 && datasetTem === "=") {
+            console.log(result);
+            result = result * 0.01;
+            temp1 = result;
+            console.log(result);
+            display.textContent = result;
+        }
+    }
+    // odwaracanie liczby
+    else if (key === "1/") {
+        //odwracanie pierwszej wpisanej liczby
+        if (operationNumber === 0 && datasetTem !== "=") {
+            temp1 = Math.round((1 / temp1) * 100000000) / 100000000;
+            if (temp1 >= (1 / 100000000)) {
+                displayNumber = "";
+                display.textContent = temp1;
+            } else {
+                displayNumber = "";
+                display.textContent = "0";
+            }
+            // obliczanie odwróconej liczby dla kolejnej wpisanej liczby lub liczby w działaniu
+        } else if (operationNumber !== 0 && datasetTem !== "=") {
+            temp2 = Math.round((1 / temp2) * 100000000) / 100000000;
+            if (temp2 >= (1 / 100000000)) {
+                displayNumber = "";
+                display.textContent = temp2;
+            } else {
+                displayNumber = "";
+                display.textContent = "0";
+            }
+            // obliczanie odwróconej liczby dla wyliczonej wartości
+        } else if (operationNumber !== 0 && datasetTem === "=") {
+            result = Math.round((1 / result) * 100000000) / 100000000;
+            if (result >= (1 / 100000000)) {
+                displayNumber = "";
+                display.textContent = result;
+                temp1 = result;
+            } else {
+                temp1 = result;
+                displayNumber = "";
+                display.textContent = "0";
+            }
+        }
+    }
+    // DO KWADRATU
+    else if (key === "Math.pow(") {
+        // do kwadratu dla pierwszej wpisanej liczby
+        if (operationNumber === 0 && datasetTem !== "=") {
+            temp1 = temp1 * temp1;
+            console.log(temp1);
+            displayNumber = "";
+            display.textContent = temp1;
+            // do kwadratu dla kolejnej wpisanej liczby lub liczby w działaniu
+        } else if (operationNumber !== 0 && datasetTem !== "=") {
+            temp2 = temp2 * temp2;
+            console.log(temp2);
+            displayNumber = "";
+            display.textContent = temp2;
+            // do kwadratu dla wyliczonej wartości
+        } else if (operationNumber !== 0 && datasetTem === "=") {
+            console.log(result);
+            result = result * result;
+            temp1 = result;
+            console.log(result);
+            display.textContent = result;
+        }
+    }
+    // PIERWIASTEK
+    else if (key === "Math.sqrt(") {
+        // pierwiastek dla pierwszej wpisanej liczby
+        if (operationNumber === 0 && datasetTem !== "=") {
+            temp1 = Math.sqrt(temp1);
+            console.log(temp1);
+            displayNumber = "";
+            display.textContent = temp1;
+            // pierwiastek dla kolejnej wpisanej liczby lub liczby w działaniu
+        } else if (operationNumber !== 0 && datasetTem !== "=") {
+            temp2 = Math.sqrt(temp2);
+            console.log(temp2);
+            displayNumber = "";
+            display.textContent = temp2;
+            // pierwiastek dla wyliczonej wartości
+        } else if (operationNumber !== 0 && datasetTem === "=") {
+            console.log(result);
+            result = Math.sqrt(result);
+            temp1 = result;
+            console.log(result);
+            display.textContent = result;
+        }
+    }
+
+}
 btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
         if ((this.dataset.key * 1) >= 0 || this.dataset.key === "+" || this.dataset.key === "-" || this.dataset.key === "*" || this.dataset.key === "/" || this.dataset.key === "=") {
             działanie(this.dataset.key);
         } else if (this.dataset.key === "CE" || this.dataset.key === "backslash" || this.dataset.key === "C") {
             czyszczenie(this.dataset.key);
+        } else if (this.dataset.key === "%" || this.dataset.key === "1/" || this.dataset.key === 'Math.pow(' || this.dataset.key === "Math.sqrt(") {
+            specjalneDzialanie(this.dataset.key)
         }
     })
 })
