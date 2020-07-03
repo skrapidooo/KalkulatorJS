@@ -1,5 +1,7 @@
 const btns = document.querySelectorAll('div[data-key]');
 const display = document.querySelector(".dislayScreen");
+const memoryButtons = document.querySelectorAll(".memoryKey");
+
 let displayNumber = "";
 let temp1 = 0;
 let temp2 = 0;
@@ -9,6 +11,9 @@ let operationDone = false;
 let operationNumber = 0;
 let tempOperator = "";
 let datasetTem = "";
+
+let memoryResult = 0;
+let memoryActive = false;
 
 
 const oblicz = function (string) {
@@ -150,6 +155,7 @@ const czyszczenie = function (key) {
         tempOperator = "";
         datasetTem = "";
         display.textContent = "0";
+
         // usuwanie ostanitej cyfry
     } else if (key === "backslash") {
         // usuwanie ostatniej cyfry z pierwszej wpisanej liczby
@@ -328,7 +334,33 @@ const znakiSpecjalne = function (key) {
     }
 }
 
-
+//klawisze MEMORY
+const działaniaMemory = function (key) {
+    if (key === 0 && memoryActive) {
+        memoryResult = 0;
+        display.textContent = "0"
+        displayNumber = "";
+        memoryActive = false;
+    } else if (key === 1 && memoryActive) {
+        temp1 = memoryResult;
+        temp2 = memoryResult;
+        operationNumber++;
+        console.log(memoryResult);
+        display.textContent = memoryResult
+    } else if (key === 2) {
+        memoryResult += display.textContent * 1;
+        displayNumber = "";
+        memoryActive = true;
+    } else if (key === 3) {
+        memoryOperator = "-";
+        memoryResult -= display.textContent * 1;;
+        displayNumber = "";
+        memoryActive = true;
+    } else if (key === 4) {
+        memoryResult = display.textContent * 1;
+        memoryActive = true;
+    }
+}
 
 
 btns.forEach(function (btn) {
@@ -342,5 +374,22 @@ btns.forEach(function (btn) {
         } else if (this.dataset.key === "-1" || this.dataset.key === ".") {
             znakiSpecjalne(this.dataset.key)
         }
+    })
+})
+
+memoryButtons.forEach(function (btn, index) {
+    btn.addEventListener("click", function () {
+        if (index >= 2) {
+            memoryButtons[0].classList.add('active');
+            memoryButtons[1].classList.add('active');
+            działaniaMemory(index);
+        } else if (index === 0) {
+            memoryButtons[0].classList.remove('active');
+            memoryButtons[1].classList.remove('active');
+            działaniaMemory(index);
+        } else if (index === 1) {
+            działaniaMemory(index);
+        }
+
     })
 })
