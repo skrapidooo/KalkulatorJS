@@ -10,6 +10,7 @@ let operationNumber = 0;
 let tempOperator = "";
 let datasetTem = "";
 
+
 const oblicz = function (string) {
     if (operationNumber !== 0 && string === "+") {
         console.log("test2")
@@ -302,8 +303,34 @@ const specjalneDzialanie = function (key) {
             display.textContent = result;
         }
     }
-
 }
+
+const znakiSpecjalne = function (key) {
+    //zmiana znaku
+    if (key === "-1") {
+        //zmiana znaku dla pierwszej liczby
+        if (operationNumber === 0) {
+            temp1 = temp1 * (-1);
+            displayNumber = temp1 + ""
+            display.textContent = displayNumber;
+            // zmiana znaku dla kolejnej liczby
+        } else if (operationNumber !== 0) {
+            displayNumber = "";
+            temp2 = temp2 * (-1);
+            displayNumber = temp2 + ""
+            display.textContent = displayNumber;
+        }
+    }
+    //dodanie przecinka
+    if (key === "." && !(displayNumber.includes("."))) {
+        displayNumber = displayNumber + "."
+        display.textContent = displayNumber;
+    }
+}
+
+
+
+
 btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
         if ((this.dataset.key * 1) >= 0 || this.dataset.key === "+" || this.dataset.key === "-" || this.dataset.key === "*" || this.dataset.key === "/" || this.dataset.key === "=") {
@@ -312,6 +339,8 @@ btns.forEach(function (btn) {
             czyszczenie(this.dataset.key);
         } else if (this.dataset.key === "%" || this.dataset.key === "1/" || this.dataset.key === 'Math.pow(' || this.dataset.key === "Math.sqrt(") {
             specjalneDzialanie(this.dataset.key)
+        } else if (this.dataset.key === "-1" || this.dataset.key === ".") {
+            znakiSpecjalne(this.dataset.key)
         }
     })
 })
