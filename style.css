@@ -34,7 +34,8 @@ body {
     width: 100%;
     background-color: #eee;
     text-align: center;
-    line-height: 200%;
+    border: 1px solid grey;
+
 }
 
 .display .dislayScreen {
@@ -43,9 +44,10 @@ body {
     background-color: grey;
     font-size: 50px;
     text-align: right;
-    line-height: 250%;
+    padding-bottom: 2%;
     padding-right: 10px;
     overflow: hidden;
+    border: 1px solid white;
 }
 
 .memory {
@@ -58,7 +60,7 @@ body {
     flex-basis: 20%;
     font-size: 25px;
     text-align: center;
-    line-height: 200%;
+
     background-color: #888;
     border: white 1px solid;
     color: white
@@ -83,7 +85,7 @@ div.memoryKey.active:hover {
     flex-basis: 25%;
     font-size: 25px;
     text-align: center;
-    line-height: 200%;
+
     background-color: #bbb;
     border: white 1px solid;
 }
@@ -96,11 +98,164 @@ div.memoryKey.active:hover {
     flex-basis: 25%;
     font-size: 25px;
     text-align: center;
-    line-height: 200%;
+
     background-color: #eee;
     border: gray 1px solid;
 }
 
 .numberKey:hover {
     background-color: #ccc;
+}
+
+section div {
+    position: relative;
+}
+
+span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+
+
+@media (min-height: 290px) and (min-width:490px) {
+    .display .dislayScreen {
+        font-size: 70px;
+    }
+
+    .display .title {
+        font-size: 18px;
+    }
+
+    .memoryKey {
+        font-size: 22px;
+    }
+
+    .functionKey {
+        font-size: 22px;
+    }
+
+    .numberKey {
+        font-size: 22px;
+    }
+}
+
+@media (min-height: 320px) and (min-width:490px) {
+    .display .dislayScreen {
+        font-size: 80px;
+        line-height: 140%;
+    }
+
+    .display .title {
+        font-size: 24px;
+    }
+
+    .memoryKey {
+        font-size: 24px;
+    }
+
+    .functionKey {
+        font-size: 24px;
+    }
+
+    .numberKey {
+        font-size: 24px;
+    }
+}
+
+@media (min-height: 360px) and (min-width:490px) {
+    .display .dislayScreen {
+        font-size: 100px;
+        line-height: 130%;
+    }
+
+    .display .title {
+        font-size: 20px;
+    }
+
+    .memoryKey {
+        font-size: 22px;
+    }
+
+    .functionKey {
+        font-size: 22px;
+    }
+
+    .numberKey {
+        font-size: 22px;
+    }
+}
+
+@media (min-height: 400px) and (min-width:490px) {
+    .display .title {
+        font-size: 30px;
+    }
+
+    .memoryKey {
+        font-size: 30px;
+    }
+
+    .functionKey {
+        font-size: 30px;
+    }
+
+    .numberKey {
+        font-size: 30px;
+    }
+}
+
+@media (min-height: 600px) and (min-width:490px) {
+    .display .dislayScreen {
+        font-size: 120px;
+    }
+
+    .display .title {
+        font-size: 40px;
+    }
+
+    .memoryKey {
+        font-size: 45px;
+    }
+
+    .functionKey {
+        font-size: 45px;
+    }
+
+    .numberKey {
+        font-size: 45px;
+    }
+}
+
+@media (min-height: 700px) and (min-width:490px) {
+    .display .dislayScreen {
+        font-size: 170px;
+        padding-bottom: 10%;
+    }
+
+    .display .title {
+        font-size: 40px;
+    }
+
+    .memoryKey {
+        font-size: 52px;
+    }
+
+    .functionKey {
+        font-size: 52px;
+    }
+
+    .numberKey {
+        font-size: 52px;
+    }
+}
+
+@media (min-width:1024px) {
+    .wrapper {
+        margin: auto;
+        width: 1024px;
+        height: 100%;
+    }
 }
